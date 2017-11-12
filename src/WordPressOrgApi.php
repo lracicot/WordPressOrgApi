@@ -27,4 +27,11 @@ class WordPressOrgApi
             PluginsActions::popular($page, $parPage)
         );
     }
+
+    public function popularThemes(int $page = 0, int $parPage = 20): PromiseInterface
+    {
+        return $this->client->sendAsync(
+            ThemesActions::popular($page, $parPage)
+        );
+    }
 }
