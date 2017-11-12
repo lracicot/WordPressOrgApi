@@ -48,6 +48,15 @@ final class WordPressOrgApiTest extends TestCase
         $this->assertFalse($results1->plugins[0]->slug == $results2->plugins[0]->slug);
     }
 
+    public function testDownloadLinkForPlugins(): void
+    {
+        $api = new WordPressOrgApi();
+        $response = $api->popularPlugins()->wait();
+        $results = unserialize($response->getBody()->getContents());
+
+        $this->assertTrue(isset($results->plugins[0]->download_link));
+    }
+
     public function testCanSendPopularThemesRequest(): void
     {
         $api = new WordPressOrgApi();
@@ -81,5 +90,14 @@ final class WordPressOrgApiTest extends TestCase
         $results2 = unserialize($response2->getBody()->getContents());
 
         $this->assertFalse($results1->themes[0]->slug == $results2->themes[0]->slug);
+    }
+
+    public function testDownloadLinkForThemes(): void
+    {
+        $api = new WordPressOrgApi();
+        $response = $api->popularThemes()->wait();
+        $results = unserialize($response->getBody()->getContents());
+
+        $this->assertTrue(count($results->themes[0]->versions) > 1);
     }
 }

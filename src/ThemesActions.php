@@ -19,6 +19,10 @@ class ThemesActions
             'browse' =>'popular',
             'page' => $page,
             'per_page' => $perPage,
+            'fields' => [
+                'last_updated' => true,
+                'versions' => true,
+            ],
         ];
 
         $params = [
